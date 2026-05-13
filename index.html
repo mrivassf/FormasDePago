@@ -1,0 +1,2104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartFran Cloud · Configuración</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --brand: #7C3AED;
+            --brand-soft: #EDE9FE;
+            --brand-mid: #A78BFA;
+            --nav-bg: #0F0D1A;
+            --nav-text: #A89FC4;
+            --nav-active: #ffffff;
+            --nav-hover: #1E1A2E;
+            --nav-accent: #7C3AED;
+            --surface: #F8F7FC;
+            --card: #ffffff;
+            --border: #E4E1F0;
+            --border-strong: #C5BFE2;
+            --text-primary: #1A1625;
+            --text-secondary: #6B6080;
+            --text-tertiary: #9B92B8;
+            --success: #059669;
+            --success-bg: #ECFDF5;
+            --danger: #DC2626;
+            --danger-bg: #FEF2F2;
+            --warning: #D97706;
+            --warning-bg: #FFFBEB;
+            --info: #2563EB;
+            --info-bg: #EFF6FF;
+            --step-active: #7C3AED;
+            --step-done: #059669;
+            --step-pending: #C5BFE2;
+            --radius: 10px;
+            --radius-sm: 6px;
+            --radius-lg: 14px;
+            --shadow: 0 1px 4px rgba(15, 10, 30, 0.06), 0 4px 16px rgba(15, 10, 30, 0.04);
+            --shadow-md: 0 2px 8px rgba(15, 10, 30, 0.08), 0 8px 24px rgba(15, 10, 30, 0.06);
+            --font: 'DM Sans', sans-serif;
+            --mono: 'DM Mono', monospace;
+            --nav-w: 220px;
+            --top-h: 52px;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--surface);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-size: 14px;
+        }
+
+        /* ── TOP BAR ── */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--top-h);
+            background: var(--nav-bg);
+            display: flex;
+            align-items: center;
+            padding: 0 16px 0 0;
+            z-index: 100;
+            gap: 0;
+        }
+
+        .topbar-logo {
+            width: var(--nav-w);
+            height: var(--top-h);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 20px;
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            flex-shrink: 0;
+        }
+
+        .logo-mark {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--brand-mid);
+            letter-spacing: -1px;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .logo-text strong {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: -0.3px;
+        }
+
+        .logo-text span {
+            font-size: 10px;
+            color: var(--nav-text);
+            letter-spacing: 0.5px;
+        }
+
+        .staging-badge {
+            font-size: 10px;
+            background: rgba(124, 58, 237, 0.25);
+            color: var(--brand-mid);
+            padding: 2px 7px;
+            border-radius: 99px;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+        }
+
+        .topbar-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .topbar-lang {
+            font-size: 12px;
+            color: var(--nav-text);
+            background: rgba(255, 255, 255, 0.06);
+            padding: 4px 10px;
+            border-radius: 99px;
+            cursor: pointer;
+        }
+
+        .topbar-user {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .topbar-user strong {
+            font-size: 12px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .topbar-user span {
+            font-size: 11px;
+            color: var(--nav-text);
+        }
+
+        .topbar-user small {
+            font-size: 10px;
+            color: var(--nav-text);
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--brand), var(--brand-mid));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            position: fixed;
+            top: var(--top-h);
+            left: 0;
+            bottom: 0;
+            width: var(--nav-w);
+            background: var(--nav-bg);
+            overflow-y: auto;
+            z-index: 90;
+            padding: 8px 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .nav-group {}
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 16px;
+            cursor: pointer;
+            color: var(--nav-text);
+            font-size: 13px;
+            font-weight: 400;
+            gap: 8px;
+            user-select: none;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .nav-item:hover {
+            background: var(--nav-hover);
+            color: var(--nav-active);
+        }
+
+        .nav-item.active-parent {
+            color: var(--nav-active);
+        }
+
+        .nav-item-inner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-icon {
+            font-size: 15px;
+            width: 18px;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        .nav-chevron {
+            font-size: 10px;
+            opacity: 0.5;
+            transition: transform 0.2s;
+        }
+
+        .nav-chevron.open {
+            transform: rotate(180deg);
+        }
+
+        .nav-sub {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.25s ease;
+        }
+
+        .nav-sub.open {
+            max-height: 300px;
+        }
+
+        .nav-sub-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 16px 7px 38px;
+            cursor: pointer;
+            color: var(--nav-text);
+            font-size: 12.5px;
+            transition: background 0.15s, color 0.15s;
+            position: relative;
+        }
+
+        .nav-sub-item::before {
+            content: '';
+            position: absolute;
+            left: 26px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0.4;
+        }
+
+        .nav-sub-item:hover {
+            background: var(--nav-hover);
+            color: #fff;
+        }
+
+        .nav-sub-item.active {
+            color: var(--brand-mid);
+            font-weight: 500;
+        }
+
+        .nav-sub-item.active::before {
+            opacity: 1;
+            background: var(--brand-mid);
+        }
+
+        .nav-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.05);
+            margin: 4px 0;
+        }
+
+        /* ── MAIN ── */
+        .main {
+            margin-left: var(--nav-w);
+            margin-top: var(--top-h);
+            padding: 28px 32px;
+            min-height: calc(100vh - var(--top-h));
+        }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            margin-bottom: 24px;
+        }
+
+        .breadcrumb {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .breadcrumb span {
+            cursor: pointer;
+        }
+
+        .breadcrumb span:hover {
+            color: var(--brand);
+        }
+
+        .page-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .page-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 3px;
+        }
+
+        /* ── SCOPE BADGE ── */
+        .scope-notice {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--info-bg);
+            border: 1px solid #BFDBFE;
+            border-radius: var(--radius-sm);
+            padding: 8px 14px;
+            font-size: 12.5px;
+            color: var(--info);
+            margin-bottom: 24px;
+        }
+
+        .scope-notice svg {
+            flex-shrink: 0;
+        }
+
+        /* ── TABS ── */
+        .view-tabs {
+            display: flex;
+            gap: 2px;
+            background: var(--border);
+            border-radius: var(--radius-sm);
+            padding: 3px;
+            width: fit-content;
+            margin-bottom: 24px;
+        }
+
+        .view-tab {
+            padding: 6px 18px;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.15s;
+        }
+
+        .view-tab.active {
+            background: #fff;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+        }
+
+        /* ── SECTION PANELS ── */
+        .content-panel {
+            display: none;
+        }
+
+        .content-panel.active {
+            display: block;
+        }
+
+        /* ── STEPPER ── */
+        .stepper {
+            display: flex;
+            align-items: flex-start;
+            gap: 0;
+            margin-bottom: 28px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .step:last-child {
+            flex: none;
+        }
+
+        .step-circle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+            border: 2px solid var(--step-pending);
+            color: var(--step-pending);
+            background: #fff;
+            transition: all 0.3s;
+            z-index: 1;
+        }
+
+        .step.done .step-circle {
+            background: var(--step-done);
+            border-color: var(--step-done);
+            color: #fff;
+        }
+
+        .step.active .step-circle {
+            background: var(--step-active);
+            border-color: var(--step-active);
+            color: #fff;
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+        }
+
+        .step-line {
+            flex: 1;
+            height: 2px;
+            background: var(--step-pending);
+            margin: 0 -1px;
+            transition: background 0.3s;
+        }
+
+        .step.done .step-line {
+            background: var(--step-done);
+        }
+
+        .step-label {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            text-align: center;
+            margin-top: 6px;
+            white-space: nowrap;
+        }
+
+        .step.active .step-label {
+            color: var(--brand);
+            font-weight: 500;
+        }
+
+        .step.done .step-label {
+            color: var(--success);
+        }
+
+        .step-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        /* ── CARD ── */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .card+.card {
+            margin-top: 16px;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .card-subtitle {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        /* ── FORM ── */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-grid.full {
+            grid-template-columns: 1fr;
+        }
+
+        .form-grid.three {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field.span2 {
+            grid-column: span 2;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
+
+        label .req {
+            color: var(--danger);
+            margin-left: 2px;
+        }
+
+        input[type=text],
+        input[type=number],
+        select,
+        textarea {
+            height: 38px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0 12px;
+            font-family: var(--font);
+            font-size: 13.5px;
+            color: var(--text-primary);
+            background: #fff;
+            outline: none;
+            transition: border-color 0.15s, box-shadow 0.15s;
+            width: 100%;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--brand);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+        }
+
+        input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        textarea {
+            height: auto;
+            padding: 10px 12px;
+            resize: vertical;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239B92B8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 32px;
+        }
+
+        /* ── TOGGLE ── */
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+        }
+
+        .toggle-info strong {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .toggle-info p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .toggle {
+            position: relative;
+            width: 36px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: var(--border-strong);
+            border-radius: 99px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            left: 3px;
+            top: 3px;
+            background: #fff;
+            border-radius: 50%;
+            transition: transform 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle input:checked+.toggle-slider {
+            background: var(--brand);
+        }
+
+        .toggle input:checked+.toggle-slider::before {
+            transform: translateX(16px);
+        }
+
+        /* ── COUNTRY TAGS ── */
+        .country-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 10px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            min-height: 44px;
+        }
+
+        .country-tag {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--brand-soft);
+            color: var(--brand);
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 99px;
+        }
+
+        .country-tag button {
+            background: none;
+            border: none;
+            color: var(--brand);
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1;
+            padding: 0;
+        }
+
+        .country-add {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .country-add select {
+            flex: 1;
+        }
+
+        /* ── PROPERTY FIELDS ── */
+        .prop-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+        }
+
+        .prop-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .prop-section-title::before {
+            content: '';
+            display: block;
+            width: 3px;
+            height: 14px;
+            background: var(--brand);
+            border-radius: 2px;
+        }
+
+        /* ── FRANCHISE SELECTOR ── */
+        .franchise-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .franchise-card {
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px;
+            cursor: pointer;
+            transition: all 0.15s;
+            background: #fff;
+        }
+
+        .franchise-card:hover {
+            border-color: var(--brand-mid);
+        }
+
+        .franchise-card.selected {
+            border-color: var(--brand);
+            background: var(--brand-soft);
+        }
+
+        .franchise-card .fc-code {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-tertiary);
+            margin-bottom: 4px;
+        }
+
+        .franchise-card .fc-name {
+            font-size: 13.5px;
+            font-weight: 500;
+        }
+
+        .franchise-card .fc-meta {
+            font-size: 11.5px;
+            color: var(--text-secondary);
+            margin-top: 3px;
+        }
+
+        .franchise-card .fc-check {
+            display: none;
+        }
+
+        .franchise-card.selected .fc-check {
+            display: flex;
+        }
+
+        /* ── INFO BLOCK ── */
+        .info-block {
+            background: var(--info-bg);
+            border: 1px solid #BFDBFE;
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+            font-size: 12.5px;
+            color: var(--info);
+            display: flex;
+            gap: 8px;
+        }
+
+        .info-block.success {
+            background: var(--success-bg);
+            border-color: #A7F3D0;
+            color: var(--success);
+        }
+
+        .info-block.warning {
+            background: var(--warning-bg);
+            border-color: #FDE68A;
+            color: var(--warning);
+        }
+
+        /* ── BUTTONS ── */
+        .btn-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            height: 38px;
+            padding: 0 20px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font);
+            font-size: 13.5px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: all 0.15s;
+        }
+
+        .btn-primary {
+            background: var(--brand);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #6D28D9;
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: var(--text-primary);
+            border: 1px solid var(--border-strong);
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+        }
+
+        .btn-ghost:hover {
+            color: var(--text-primary);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: #fff;
+        }
+
+        .btn-sm {
+            height: 30px;
+            padding: 0 12px;
+            font-size: 12px;
+        }
+
+        /* ── LIST TABLE ── */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            padding: 10px 14px;
+            text-align: left;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table td {
+            padding: 12px 14px;
+            font-size: 13px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover td {
+            background: var(--surface);
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11.5px;
+            font-weight: 500;
+            padding: 3px 10px;
+            border-radius: 99px;
+        }
+
+        .pill-active {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .pill-inactive {
+            background: var(--border);
+            color: var(--text-tertiary);
+        }
+
+        .pill-draft {
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .pill-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .code-tag {
+            font-family: var(--mono);
+            font-size: 11.5px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2px 7px;
+            border-radius: 4px;
+            color: var(--text-secondary);
+        }
+
+        .flag {
+            font-size: 14px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-tertiary);
+            font-size: 14px;
+            padding: 4px 6px;
+            border-radius: 4px;
+            transition: color 0.15s, background 0.15s;
+        }
+
+        .action-btn:hover {
+            color: var(--brand);
+            background: var(--brand-soft);
+        }
+
+        /* ── EMPTY STATE ── */
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: var(--text-tertiary);
+        }
+
+        .empty-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .empty-state p {
+            font-size: 13.5px;
+        }
+
+        /* ── TOP TOOLBAR ── */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            height: 36px;
+            padding: 0 12px 0 36px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font);
+            font-size: 13px;
+            color: var(--text-primary);
+            background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239B92B8' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='M21 21l-4.35-4.35'/%3E%3C/svg%3E") no-repeat 10px center;
+            width: 220px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--brand);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        /* ── STEP FORMS ── */
+        .step-form {
+            display: none;
+        }
+
+        .step-form.active {
+            display: block;
+        }
+
+        /* ── WAREHOUSE DETAIL ── */
+        .warehouse-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .warehouse-item {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .warehouse-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .wh-bank {
+            background: #EFF6FF;
+        }
+
+        .wh-cash {
+            background: #F0FDF4;
+        }
+
+        .wh-wallet {
+            background: #FDF4FF;
+        }
+
+        .wh-platform {
+            background: #FFF7ED;
+        }
+
+        .warehouse-meta {
+            flex: 1;
+        }
+
+        .warehouse-meta strong {
+            font-size: 13.5px;
+            font-weight: 500;
+        }
+
+        .warehouse-meta p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        /* ── STEP CONNECTOR ── */
+        .step-row {
+            display: flex;
+            gap: 0;
+            align-items: flex-start;
+            margin-bottom: 28px;
+        }
+
+        .step-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 16px;
+        }
+
+        .step-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .step-dot.done {
+            background: var(--success);
+            color: #fff;
+            border: 2px solid var(--success);
+        }
+
+        .step-dot.active {
+            background: var(--brand);
+            color: #fff;
+            border: 2px solid var(--brand);
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+        }
+
+        .step-dot.pending {
+            background: #fff;
+            color: var(--text-tertiary);
+            border: 2px solid var(--border-strong);
+        }
+
+        .step-vline {
+            width: 2px;
+            flex: 1;
+            min-height: 24px;
+            background: var(--border);
+            margin: 4px 0;
+        }
+
+        .step-vline.done {
+            background: var(--success);
+        }
+
+        .step-content {
+            flex: 1;
+            padding-bottom: 24px;
+        }
+
+        .step-content-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .step-content-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-panel.active {
+            animation: fadeIn 0.2s ease;
+        }
+
+        .card {
+            animation: fadeIn 0.2s ease;
+        }
+
+        /* ── DIVIDER ── */
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 20px 0;
+        }
+
+        /* ── SUCCESS SUMMARY ── */
+        .summary-box {
+            background: var(--success-bg);
+            border: 1px solid #A7F3D0;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            text-align: center;
+        }
+
+        .summary-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .summary-box h3 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--success);
+        }
+
+        .summary-box p {
+            font-size: 13px;
+            color: #065F46;
+            margin-top: 6px;
+        }
+
+        .summary-details {
+            margin-top: 16px;
+            background: #fff;
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            text-align: left;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            font-size: 13px;
+            border-bottom: 1px solid #D1FAE5;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-row span {
+            color: var(--text-secondary);
+        }
+
+        .summary-row strong {
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+        <div class="topbar-logo">
+            <span class="logo-mark">{</span>
+            <div class="logo-text">
+                <strong>smartfran</strong>
+                <span>CLOUD</span>
+            </div>
+            <span class="staging-badge">Staging</span>
+        </div>
+        <div class="topbar-right">
+            <span class="topbar-lang">ES ▾</span>
+            <div class="topbar-user">
+                <strong>Mariela Rivas</strong>
+                <span>07/05/2026 15:54</span>
+                <small>Gestor: Francisco Andreoli</small>
+            </div>
+            <div class="avatar">MR</div>
+        </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="nav-group">
+            <div class="nav-item" onclick="toggleNav(this)">
+                <div class="nav-item-inner"><span class="nav-icon">⊞</span> Tableros</div>
+                <span class="nav-chevron">▾</span>
+            </div>
+            <div class="nav-sub"></div>
+        </div>
+        <div class="nav-group">
+            <div class="nav-item" onclick="toggleNav(this)">
+                <div class="nav-item-inner"><span class="nav-icon">◫</span> Catálogo</div>
+                <span class="nav-chevron">▾</span>
+            </div>
+            <div class="nav-sub"></div>
+        </div>
+        <div class="nav-group">
+            <div class="nav-item" onclick="toggleNav(this)">
+                <div class="nav-item-inner"><span class="nav-icon">≡</span> Listas de Precio</div>
+                <span class="nav-chevron">▾</span>
+            </div>
+            <div class="nav-sub"></div>
+        </div>
+        <div class="nav-group">
+            <div class="nav-item" onclick="toggleNav(this)">
+                <div class="nav-item-inner"><span class="nav-icon">⛋</span> Franquicias</div>
+                <span class="nav-chevron">▾</span>
+            </div>
+            <div class="nav-sub"></div>
+        </div>
+        <div class="nav-group">
+            <div class="nav-item" onclick="toggleNav(this)">
+                <div class="nav-item-inner"><span class="nav-icon">◈</span> Gestión</div>
+                <span class="nav-chevron">▾</span>
+            </div>
+            <div class="nav-sub"></div>
+        </div>
+        <div class="nav-group">
+            <div class="nav-item" onclick="toggleNav(this)">
+                <div class="nav-item-inner"><span class="nav-icon">▤</span> Stock</div>
+                <span class="nav-chevron">▾</span>
+            </div>
+            <div class="nav-sub"></div>
+        </div>
+        <div class="nav-group">
+            <div class="nav-item" onclick="toggleNav(this)">
+                <div class="nav-item-inner"><span class="nav-icon">↗</span> Informes</div>
+                <span class="nav-chevron">▾</span>
+            </div>
+            <div class="nav-sub"></div>
+        </div>
+        <div class="nav-group">
+            <div class="nav-item" onclick="toggleNav(this)">
+                <div class="nav-item-inner"><span class="nav-icon">✦</span> Acciones Comerciales</div>
+                <span class="nav-chevron">▾</span>
+            </div>
+            <div class="nav-sub"></div>
+        </div>
+        <div class="nav-group">
+            <div class="nav-item" onclick="toggleNav(this)">
+                <div class="nav-item-inner"><span class="nav-icon">⊕</span> Seguridad</div>
+                <span class="nav-chevron">▾</span>
+            </div>
+            <div class="nav-sub"></div>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group">
+            <div class="nav-item active-parent" onclick="toggleNav(this, true)">
+                <div class="nav-item-inner"><span class="nav-icon">⚙</span> Configuración</div>
+                <span class="nav-chevron open">▾</span>
+            </div>
+            <div class="nav-sub open">
+                <div class="nav-sub-item" onclick="navigateTo('cuentas')">Cuentas</div>
+                <div class="nav-sub-item" onclick="navigateTo('tipos')">Tipos de Movimientos</div>
+                <div class="nav-sub-item" onclick="navigateTo('operaciones')">Operaciones</div>
+                <div class="nav-sub-item" onclick="navigateTo('monedas')">Monedas</div>
+                <div class="nav-sub-item" onclick="navigateTo('formas-pago')">Formas de Pago</div>
+                <div class="nav-sub-item" onclick="navigateTo('importar')">Importar Estructura</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main">
+
+        <!-- FORMAS DE PAGO -->
+        <div id="panel-formas-pago" class="content-panel active">
+            <div class="page-header">
+                <div class="breadcrumb">
+                    <span>Configuración</span>
+                    <span style="opacity:0.4">›</span>
+                    <span style="color:var(--text-primary)">Formas de Pago</span>
+                </div>
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+                    <div>
+                        <div class="page-title">Formas de Pago</div>
+                        <div class="page-subtitle">Métodos de cobro disponibles en todos los puntos de venta</div>
+                    </div>
+                    <button class="btn btn-primary" onclick="showView('pm','create')">+ Crear</button>
+                </div>
+            </div>
+            <div class="scope-notice">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 8v4M12 16h.01" />
+                </svg>
+                Alcance <strong style="margin:0 4px">Tenant</strong> — Una forma de pago creada aquí aplica a
+                todo el sistema. Para que se visualice en el POS se debe asignar el deposito correspondiente en cada
+                uno.
+            </div>
+
+            <!-- LIST VIEW -->
+            <div id="pm-list-view">
+                <div class="toolbar">
+                    <input type="text" class="search-input" placeholder="Buscar forma de pago...">
+                    <select style="height:36px;width:140px">
+                        <option>Todos los países</option>
+                        <option>🇦🇷 Argentina</option>
+                        <option>🇵🇪 Perú</option>
+                        <option>🇨🇱 Chile</option>
+                        <option>🇲🇽 México</option>
+                    </select>
+                    <select style="height:36px;width:130px">
+                        <option>Todos los estados</option>
+                        <option>Activo</option>
+                        <option>Inactivo</option>
+                    </select>
+                </div>
+                <div class="card" style="padding:0;overflow:hidden">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Código</th>
+                                <th>Países</th>
+                                <th>Depósitos vinculados</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Efectivo</strong></td>
+                                <td><span class="code-tag">CASH</span></td>
+                                <td><span class="flag">🌎</span> Global</td>
+                                <td style="color:var(--text-secondary)">12 franquicias</td>
+                                <td>
+                                    <label class="toggle" style="display:inline-block;vertical-align:middle">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td style="text-align:right"><button class="action-btn" title="Editar">✎</button><button
+                                        class="action-btn" title="Ver">⊙</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tarjeta de Crédito</strong></td>
+                                <td><span class="code-tag">CREDIT_CARD</span></td>
+                                <td><span class="flag">🌎</span> Global</td>
+                                <td style="color:var(--text-secondary)">10 franquicias</td>
+                                <td>
+                                    <label class="toggle" style="display:inline-block;vertical-align:middle">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td style="text-align:right"><button class="action-btn">✎</button><button
+                                        class="action-btn">⊙</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Transferencia bancaria</strong></td>
+                                <td><span class="code-tag">BANK_TRANSFER</span></td>
+                                <td><span class="flag">🇦🇷</span> Argentina</td>
+                                <td style="color:var(--text-secondary)">6 franquicias</td>
+                                <td>
+                                    <label class="toggle" style="display:inline-block;vertical-align:middle">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td style="text-align:right"><button class="action-btn">✎</button><button
+                                        class="action-btn">⊙</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cuenta DNI</strong></td>
+                                <td><span class="code-tag">CUENTA_DNI</span></td>
+                                <td><span class="flag">🇦🇷</span> Argentina</td>
+                                <td style="color:var(--text-secondary)">4 franquicias</td>
+                                <td>
+                                    <label class="toggle" style="display:inline-block;vertical-align:middle">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td style="text-align:right"><button class="action-btn">✎</button><button
+                                        class="action-btn">⊙</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Yape</strong></td>
+                                <td><span class="code-tag">YAPE</span></td>
+                                <td><span class="flag">🇵🇪</span> Perú</td>
+                                <td style="color:var(--text-secondary)">3 franquicias</td>
+                                <td>
+                                    <label class="toggle" style="display:inline-block;vertical-align:middle">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td style="text-align:right"><button class="action-btn">✎</button><button
+                                        class="action-btn">⊙</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rappi Pay</strong></td>
+                                <td><span class="code-tag">RAPPI</span></td>
+                                <td><span class="flag">🇦🇷</span> AR · <span class="flag">🇨🇱</span> CL · <span
+                                        class="flag">🇲🇽</span> MX</td>
+                                <td style="color:var(--text-tertiary)">—</td>
+                                <td>
+                                    <label class="toggle" style="display:inline-block;vertical-align:middle">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td style="text-align:right"><button class="action-btn">✎</button><button
+                                        class="action-btn">⊙</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CREATE VIEW -->
+            <div id="pm-create-view" style="display:none">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px">
+                    <button class="btn btn-ghost btn-sm" onclick="showView('pm','list')">← Volver</button>
+                    <span style="color:var(--border-strong)">|</span>
+                    <span style="font-size:14px;font-weight:500">Nueva forma de pago</span>
+                </div>
+                <div class="card">
+                    <div class="card-title">Datos generales</div>
+                    <div class="card-subtitle">La forma de pago tendrá alcance global (owner/tenant) y estará disponible
+                        para todas las franquicias según su país.</div>
+                    <div class="form-grid" style="margin-bottom:16px">
+                        <div class="field">
+                            <label>Nombre <span class="req">*</span></label>
+                            <input type="text" placeholder="ej. Cuenta DNI, Izipay, Rappi">
+                        </div>
+                        <div class="field">
+                            <label>Código interno <span class="req">*</span></label>
+                            <input type="text" placeholder="ej. CUENTA_DNI" style="font-family:var(--mono)">
+                        </div>
+                    </div>
+
+                    <div class="field" style="margin-bottom:16px">
+                        <label>Países habilitados <span class="req">*</span></label>
+                        <div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px">Dejá vacío para
+                            habilitar en todos los países. Seleccionando países, solo las franquicias de esos países
+                            podrán usar este método.</div>
+                        <div class="country-selector" id="country-tags">
+                            <span class="country-tag">🇦🇷 Argentina <button onclick="removeTag(this)">×</button></span>
+                            <span class="country-tag">🇵🇪 Perú <button onclick="removeTag(this)">×</button></span>
+                        </div>
+                        <div class="country-add">
+                            <select id="country-select">
+                                <option value="">+ Agregar país...</option>
+                                <option value="🇦🇷 Argentina">🇦🇷 Argentina</option>
+                                <option value="🇵🇪 Perú">🇵🇪 Perú</option>
+                                <option value="🇨🇱 Chile">🇨🇱 Chile</option>
+                                <option value="🇲🇽 México">🇲🇽 México</option>
+                                <option value="🇧🇷 Brasil">🇧🇷 Brasil</option>
+                                <option value="🇺🇾 Uruguay">🇺🇾 Uruguay</option>
+                            </select>
+                            <button class="btn btn-secondary btn-sm" onclick="addCountry()">Agregar</button>
+                        </div>
+                    </div>
+
+                    <div class="toggle-row">
+                        <div class="toggle-info">
+                            <strong>Habilitada en el sistema</strong>
+                            <p>Las franquicias podrán configurar sus depósitos para esta forma de pago.</p>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="btn-row">
+                        <button class="btn btn-primary" onclick="showView('pm','list')">Guardar forma de pago</button>
+                        <button class="btn btn-secondary" onclick="showView('pm','list')">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEPÓSITOS DE DINERO -->
+        <div id="panel-depositos" class="content-panel">
+            <div class="page-header">
+                <div class="breadcrumb">
+                    <span>Configuración</span>
+                    <span style="opacity:0.4">›</span>
+                    <span style="color:var(--text-primary)">Depósitos de Dinero</span>
+                </div>
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+                    <div>
+                        <div class="page-title">Depósitos de Dinero</div>
+                        <div class="page-subtitle">Destinos financieros por franquicia · Money Warehouse Values</div>
+                    </div>
+                    <button class="btn btn-primary" onclick="showView('wh','create')">+ Crear</button>
+                </div>
+            </div>
+            <div class="scope-notice" style="background:var(--warning-bg);border-color:#FDE68A;color:var(--warning)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                    <line x1="12" y1="9" x2="12" y2="13" />
+                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+                Alcance <strong style="margin:0 4px">por franquicia</strong> — cada franquicia debe configurar sus
+                propios depósitos. Los depósitos se vinculan a las formas de pago habilitadas en ese franquiciado.
+            </div>
+
+            <!-- LIST -->
+            <div id="wh-list-view">
+                <div class="toolbar">
+                    <input type="text" class="search-input" placeholder="Buscar depósito...">
+                    <select style="height:36px;width:160px">
+                        <option>Todos los tipos</option>
+                        <option>Caja física</option>
+                        <option>Banco</option>
+                        <option>Billetera virtual</option>
+                        <option>Plataforma</option>
+                    </select>
+                    <select style="height:36px;width:160px">
+                        <option>Todos los franquiciados</option>
+                        <option>Helados del Sur SA</option>
+                        <option>Burguer Norte SRL</option>
+                    </select>
+                </div>
+                <div class="card" style="padding:0;overflow:hidden">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Franquicia</th>
+                                <th>Cuenta vinculada</th>
+                                <th>Propiedades</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Caja Principal</strong></td>
+                                <td>💵 Caja física</td>
+                                <td style="font-size:12px">
+                                    <div style="font-weight:500">Helados del Sur SA</div>
+                                    <div style="color:var(--text-tertiary)">Sucursal Centro</div>
+                                </td>
+                                <td><span class="code-tag">ACC-0023</span></td>
+                                <td style="color:var(--text-secondary);font-size:12px">—</td>
+                                <td>
+                                    <label class="toggle" style="display:inline-block;vertical-align:middle">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td style="text-align:right"><button class="action-btn">✎</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Banco Galicia</strong></td>
+                                <td>🏦 Banco</td>
+                                <td style="font-size:12px">
+                                    <div style="font-weight:500">Helados del Sur SA</div>
+                                    <div style="color:var(--text-tertiary)">Sucursal Centro</div>
+                                </td>
+                                <td><span class="code-tag">ACC-0023</span></td>
+                                <td style="color:var(--text-secondary);font-size:12px">CBU: 0070-2345...</td>
+                                <td>
+                                    <label class="toggle" style="display:inline-block;vertical-align:middle">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td style="text-align:right"><button class="action-btn">✎</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cuenta DNI</strong></td>
+                                <td>📱 Billetera virtual</td>
+                                <td style="font-size:12px">
+                                    <div style="font-weight:500">Burguer Norte SRL</div>
+                                    <div style="color:var(--text-tertiary)">Sucursal Norte</div>
+                                </td>
+                                <td><span class="code-tag">ACC-0041</span></td>
+                                <td style="color:var(--text-secondary);font-size:12px">Alias: burguer.norte</td>
+                                <td>
+                                    <label class="toggle" style="display:inline-block;vertical-align:middle">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </td>
+                                <td style="text-align:right"><button class="action-btn">✎</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CREATE WIZARD -->
+            <div id="wh-create-view" style="display:none">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px">
+                    <button class="btn btn-ghost btn-sm" onclick="showView('wh','list')">← Volver</button>
+                    <span style="color:var(--border-strong)">|</span>
+                    <span style="font-size:14px;font-weight:500">Nuevo depósito de dinero</span>
+                </div>
+
+                <!-- STEP 1 -->
+                <div class="step-row">
+                    <div class="step-col">
+                        <div class="step-dot active" id="wh-dot-1">1</div>
+                        <div class="step-vline" id="wh-line-1"></div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-content-title">Seleccionar franquiciado y franquicia</div>
+                        <div class="step-content-sub">El depósito se creará para la franquicia seleccionada y tomará su
+                            cuenta interna.</div>
+                        <div id="wh-step1-form">
+                            <div class="form-grid" style="margin-bottom:14px">
+                                <div class="field">
+                                    <label>Franquiciado <span class="req">*</span></label>
+                                    <select onchange="onFranchiseeChange(this)">
+                                        <option value="">Seleccioná un franquiciado...</option>
+                                        <option value="hs">Helados del Sur SA</option>
+                                        <option value="bn">Burguer Norte SRL</option>
+                                        <option value="em">Empanadas del Monte SAS</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label>Franquicia <span class="req">*</span></label>
+                                    <select id="franchise-select" disabled>
+                                        <option value="">— Seleccioná primero el franquiciado —</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="franchise-info" style="display:none" class="info-block" style="margin-bottom:14px">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.9 1.18 2 2 0 012.88 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 7.91a16 16 0 006 6l1.08-1.08a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+                                </svg>
+                                <div>
+                                    <strong>Código de franquicia:</strong> <span id="fi-code"
+                                        style="font-family:var(--mono)">—</span> ·
+                                    <strong>Cuenta interna:</strong> <span id="fi-account"
+                                        style="font-family:var(--mono)">—</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-sm" onclick="goStep(2)">Continuar →</button>
+                        </div>
+                        <div id="wh-step1-done" style="display:none">
+                            <div class="info-block success">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span id="wh-step1-summary">—</span>
+                                <button class="btn btn-ghost btn-sm" style="margin-left:auto;padding:0 6px"
+                                    onclick="editStep(1)">Cambiar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2 -->
+                <div class="step-row">
+                    <div class="step-col">
+                        <div class="step-dot pending" id="wh-dot-2">2</div>
+                        <div class="step-vline" id="wh-line-2"></div>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-content-title">Configurar el depósito</div>
+                        <div class="step-content-sub">Nombre, tipo de depósito y propiedades específicas según el tipo.
+                        </div>
+                        <div id="wh-step2-form" style="display:none">
+                            <div class="form-grid" style="margin-bottom:14px">
+                                <div class="field">
+                                    <label>Nombre del depósito <span class="req">*</span></label>
+                                    <input type="text" id="wh-name" placeholder="ej. Caja principal, Banco Nación...">
+                                </div>
+                                <div class="field">
+                                    <label>Tipo de depósito <span class="req">*</span></label>
+                                    <select id="wh-type" onchange="onTypeChange(this)">
+                                        <option value="">Seleccioná un tipo...</option>
+                                        <option value="cash">💵 Caja física</option>
+                                        <option value="bank">🏦 Banco</option>
+                                        <option value="wallet">📱 Billetera virtual</option>
+                                        <option value="platform">🛒 Plataforma</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- DYNAMIC PROPS -->
+                            <div id="wh-props-cash" style="display:none" class="prop-section"
+                                style="margin-bottom:14px">
+                                <div class="prop-section-title">Propiedades · Caja física</div>
+                                <div class="form-grid">
+                                    <div class="field">
+                                        <label>Ubicación / descripción</label>
+                                        <input type="text" placeholder="ej. Mostrador principal, Caja 2...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="wh-props-bank" style="display:none" class="prop-section"
+                                style="margin-bottom:14px">
+                                <div class="prop-section-title">Propiedades · Banco</div>
+                                <div class="form-grid">
+                                    <div class="field">
+                                        <label>CBU <span class="req">*</span></label>
+                                        <input type="text" placeholder="22 dígitos" style="font-family:var(--mono)"
+                                            maxlength="22">
+                                    </div>
+                                    <div class="field">
+                                        <label>Alias CBU</label>
+                                        <input type="text" placeholder="ej. empresa.banco.galicia"
+                                            style="font-family:var(--mono)">
+                                    </div>
+                                    <div class="field">
+                                        <label>Nombre del banco</label>
+                                        <input type="text" placeholder="ej. Banco Galicia">
+                                    </div>
+                                    <div class="field">
+                                        <label>N° de cuenta</label>
+                                        <input type="text" placeholder="ej. 4012-3456/7"
+                                            style="font-family:var(--mono)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="wh-props-wallet" style="display:none" class="prop-section"
+                                style="margin-bottom:14px">
+                                <div class="prop-section-title">Propiedades · Billetera virtual</div>
+                                <div class="form-grid">
+                                    <div class="field">
+                                        <label>Alias / usuario <span class="req">*</span></label>
+                                        <input type="text" placeholder="ej. empresa.local"
+                                            style="font-family:var(--mono)">
+                                    </div>
+                                    <div class="field">
+                                        <label>Teléfono asociado</label>
+                                        <input type="text" placeholder="+54 11...">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="wh-props-platform" style="display:none" class="prop-section"
+                                style="margin-bottom:14px">
+                                <div class="prop-section-title">Propiedades · Plataforma</div>
+                                <div class="form-grid">
+                                    <div class="field">
+                                        <label>ID de vendedor <span class="req">*</span></label>
+                                        <input type="text" placeholder="ej. merchant_id"
+                                            style="font-family:var(--mono)">
+                                    </div>
+                                    <div class="field">
+                                        <label>Nombre de la plataforma</label>
+                                        <input type="text" placeholder="ej. Rappi, Pedidos Ya...">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="toggle-row" style="margin-bottom:14px">
+                                <div class="toggle-info">
+                                    <strong>Habilitado</strong>
+                                    <p>El depósito estará disponible para recibir transacciones del POS.</p>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <button class="btn btn-primary btn-sm" onclick="goStep(3)">Continuar →</button>
+                        </div>
+                        <div id="wh-step2-done" style="display:none">
+                            <div class="info-block success">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <span id="wh-step2-summary">—</span>
+                                <button class="btn btn-ghost btn-sm" style="margin-left:auto;padding:0 6px"
+                                    onclick="editStep(2)">Cambiar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3 -->
+                <div class="step-row">
+                    <div class="step-col">
+                        <div class="step-dot pending" id="wh-dot-3">3</div>
+                    </div>
+                    <div class="step-content" style="padding-bottom:0">
+                        <div class="step-content-title">Confirmar y crear</div>
+                        <div class="step-content-sub">Revisá el resumen antes de crear el depósito.</div>
+                        <div id="wh-step3-form" style="display:none">
+                            <div class="summary-box" id="wh-summary-box">
+                                <div class="summary-icon">✓</div>
+                                <h3>Todo listo para crear el depósito</h3>
+                                <p>Revisá los datos antes de confirmar.</p>
+                                <div class="summary-details">
+                                    <div class="summary-row"><span>Franquiciado</span><strong
+                                            id="sum-franchisee">—</strong></div>
+                                    <div class="summary-row"><span>Franquicia</span><strong
+                                            id="sum-franchise">—</strong></div>
+                                    <div class="summary-row"><span>Código franquicia</span><strong id="sum-code"
+                                            style="font-family:var(--mono)">—</strong></div>
+                                    <div class="summary-row"><span>Cuenta interna</span><strong id="sum-account"
+                                            style="font-family:var(--mono)">—</strong></div>
+                                    <div class="summary-row"><span>Nombre depósito</span><strong
+                                            id="sum-name">—</strong></div>
+                                    <div class="summary-row"><span>Tipo</span><strong id="sum-type">—</strong></div>
+                                    <div class="summary-row"><span>Estado</span><strong style="color:var(--success)">●
+                                            Habilitado</strong></div>
+                                </div>
+                            </div>
+                            <div class="btn-row">
+                                <button class="btn btn-success" onclick="createWarehouse()">✓ Crear depósito</button>
+                                <button class="btn btn-secondary" onclick="editStep(1)">Editar</button>
+                            </div>
+                        </div>
+                        <div id="wh-created" style="display:none">
+                            <div class="summary-box">
+                                <div class="summary-icon">🎉</div>
+                                <h3>¡Depósito creado con éxito!</h3>
+                                <p>El depósito ya está disponible y vinculable a formas de pago en el POS.</p>
+                            </div>
+                            <div class="btn-row" style="margin-top:16px">
+                                <button class="btn btn-primary" onclick="showView('wh','create')">+ Crear otro
+                                    depósito</button>
+                                <button class="btn btn-secondary" onclick="showView('wh','list')">Ver todos los
+                                    depósitos</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OTHER PANELS -->
+
+
+    </div>
+
+    <script>
+        const franchiseeData = {
+            hs: {
+                name: 'Helados del Sur SA',
+                franchises: [
+                    { code: 'HDS-001', name: 'Sucursal Centro', account: 'ACC-0023' },
+                    { code: 'HDS-002', name: 'Sucursal Norte', account: 'ACC-0024' },
+                ]
+            },
+            bn: {
+                name: 'Burguer Norte SRL',
+                franchises: [
+                    { code: 'BN-001', name: 'Local Palermo', account: 'ACC-0041' },
+                ]
+            },
+            em: {
+                name: 'Empanadas del Monte SAS',
+                franchises: [
+                    { code: 'EM-001', name: 'Local Principal', account: 'ACC-0058' },
+                    { code: 'EM-002', name: 'Local Shopping', account: 'ACC-0059' },
+                ]
+            }
+        };
+
+        let whState = { franchisee: null, franchise: null, step: 1 };
+
+        function toggleNav(el, forceOpen) {
+            const sub = el.nextElementSibling;
+            const chevron = el.querySelector('.nav-chevron');
+            if (!sub || !sub.classList.contains('nav-sub')) return;
+            const isOpen = sub.classList.contains('open');
+            if (forceOpen) { sub.classList.add('open'); chevron && chevron.classList.add('open'); return; }
+            sub.classList.toggle('open', !isOpen);
+            chevron && chevron.classList.toggle('open', !isOpen);
+        }
+
+        function navigateTo(page) {
+            document.querySelectorAll('.nav-sub-item').forEach(i => i.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
+            const panel = document.getElementById('panel-' + page);
+            if (panel) { panel.classList.add('active'); }
+            else {
+                document.getElementById('panel-cuentas').classList.add('active');
+            }
+        }
+
+        function showView(section, view) {
+            if (section === 'pm') {
+                document.getElementById('pm-list-view').style.display = view === 'list' ? '' : 'none';
+                document.getElementById('pm-create-view').style.display = view === 'create' ? '' : 'none';
+            } else {
+                document.getElementById('wh-list-view').style.display = view === 'list' ? '' : 'none';
+                const cv = document.getElementById('wh-create-view');
+                cv.style.display = view === 'create' ? '' : 'none';
+                if (view === 'create') resetWizard();
+            }
+        }
+
+        function resetWizard() {
+            whState = { franchisee: null, franchise: null, step: 1 };
+            setStep(1);
+            document.getElementById('wh-step1-form').style.display = '';
+            document.getElementById('wh-step1-done').style.display = 'none';
+            document.getElementById('wh-step2-form').style.display = 'none';
+            document.getElementById('wh-step2-done').style.display = 'none';
+            document.getElementById('wh-step3-form').style.display = 'none';
+            document.getElementById('wh-created').style.display = 'none';
+            onTypeChange({ value: '' });
+        }
+
+        function setStep(n) {
+            [1, 2, 3].forEach(i => {
+                const dot = document.getElementById('wh-dot-' + i);
+                dot.className = 'step-dot ' + (i < n ? 'done' : i === n ? 'active' : 'pending');
+                if (dot.classList.contains('done')) dot.innerHTML = '✓';
+                else dot.innerHTML = i;
+                const line = document.getElementById('wh-line-' + i);
+                if (line) line.className = 'step-vline' + (i < n ? ' done' : '');
+            });
+        }
+
+        function onFranchiseeChange(sel) {
+            const key = sel.value;
+            const fs = document.getElementById('franchise-select');
+            const fi = document.getElementById('franchise-info');
+            fs.innerHTML = '<option value="">Seleccioná una franquicia...</option>';
+            fi.style.display = 'none';
+            if (!key) { fs.disabled = true; return; }
+            fs.disabled = false;
+            franchiseeData[key].franchises.forEach(f => {
+                const o = document.createElement('option');
+                o.value = JSON.stringify(f);
+                o.textContent = f.name;
+                fs.appendChild(o);
+            });
+            fs.onchange = function () {
+                if (!this.value) { fi.style.display = 'none'; return; }
+                const f = JSON.parse(this.value);
+                document.getElementById('fi-code').textContent = f.code;
+                document.getElementById('fi-account').textContent = f.account;
+                fi.style.display = 'flex';
+                whState.franchisee = franchiseeData[key];
+                whState.franchise = f;
+            };
+        }
+
+        function goStep(n) {
+            if (n === 2) {
+                const fs = document.getElementById('franchise-select');
+                if (!whState.franchise) { alert('Seleccioná un franquiciado y una franquicia para continuar.'); return; }
+                document.getElementById('wh-step1-form').style.display = 'none';
+                document.getElementById('wh-step1-done').style.display = '';
+                document.getElementById('wh-step1-summary').textContent =
+                    whState.franchisee.name + ' · ' + whState.franchise.name + ' [' + whState.franchise.code + ']';
+                document.getElementById('wh-step2-form').style.display = '';
+                setStep(2);
+            } else if (n === 3) {
+                const name = document.getElementById('wh-name').value;
+                const type = document.getElementById('wh-type');
+                if (!name || !type.value) { alert('Completá el nombre y el tipo de depósito.'); return; }
+                const typeLabel = type.options[type.selectedIndex].text;
+                document.getElementById('wh-step2-form').style.display = 'none';
+                document.getElementById('wh-step2-done').style.display = '';
+                document.getElementById('wh-step2-summary').textContent = name + ' · ' + typeLabel;
+                // Summary
+                document.getElementById('sum-franchisee').textContent = whState.franchisee.name;
+                document.getElementById('sum-franchise').textContent = whState.franchise.name;
+                document.getElementById('sum-code').textContent = whState.franchise.code;
+                document.getElementById('sum-account').textContent = whState.franchise.account;
+                document.getElementById('sum-name').textContent = name;
+                document.getElementById('sum-type').textContent = typeLabel;
+                document.getElementById('wh-step3-form').style.display = '';
+                setStep(3);
+            }
+        }
+
+        function editStep(n) {
+            if (n === 1) {
+                document.getElementById('wh-step1-done').style.display = 'none';
+                document.getElementById('wh-step1-form').style.display = '';
+                document.getElementById('wh-step2-form').style.display = 'none';
+                document.getElementById('wh-step2-done').style.display = 'none';
+                document.getElementById('wh-step3-form').style.display = 'none';
+                setStep(1);
+            } else if (n === 2) {
+                document.getElementById('wh-step2-done').style.display = 'none';
+                document.getElementById('wh-step2-form').style.display = '';
+                document.getElementById('wh-step3-form').style.display = 'none';
+                setStep(2);
+            }
+        }
+
+        function onTypeChange(sel) {
+            ['cash', 'bank', 'wallet', 'platform'].forEach(t => {
+                const el = document.getElementById('wh-props-' + t);
+                if (el) el.style.display = sel.value === t ? '' : 'none';
+            });
+        }
+
+        function createWarehouse() {
+            document.getElementById('wh-step3-form').style.display = 'none';
+            document.getElementById('wh-created').style.display = '';
+        }
+
+        function removeTag(btn) {
+            btn.parentElement.remove();
+        }
+
+        function addCountry() {
+            const sel = document.getElementById('country-select');
+            if (!sel.value) return;
+            const container = document.getElementById('country-tags');
+            const existing = Array.from(container.querySelectorAll('.country-tag')).map(t => t.textContent.replace('×', '').trim());
+            if (existing.includes(sel.value)) return;
+            const tag = document.createElement('span');
+            tag.className = 'country-tag';
+            tag.innerHTML = sel.value + ' <button onclick="removeTag(this)">×</button>';
+            container.appendChild(tag);
+            sel.value = '';
+        }
+
+        // Init sidebar active state
+        document.querySelector('.nav-sub-item').classList.add('active');
+        document.querySelector('.nav-sub-item').dispatchEvent(new Event('click'));
+
+        // Default: show formas de pago
+        document.getElementById('panel-formas-pago').classList.add('active');
+        navigateTo('formas-pago');
+        document.querySelectorAll('.nav-sub-item').forEach(i => {
+            if (i.textContent.trim() === 'Formas de Pago') i.classList.add('active');
+            else i.classList.remove('active');
+        });
+    </script>
+</body>
+
+</html>
